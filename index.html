@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+
+    <button class="rock">Rock</button>
+    <button class="paper">Paper</button>
+    <button class="scissors">Scissors</button>
+
+  <script>
+
+    function playRound(playerSelection) {
+      const random = ["rock", "paper", "scissors"];
+      const computerSelection = random[Math.floor(Math.random() * 3)];
+      if (playerSelection == "rock" && computerSelection == "paper") {
+        console.log("You lose! paper covers rock!");
+      }
+      else if (playerSelection == "rock" && computerSelection == "scissors") {
+        console.log("You win! rock breaks scissors!");
+      }
+      else if (playerSelection == "paper" && computerSelection == "rock") {
+        console.log("You win! paper covers rock!");
+      }
+      else if (playerSelection == "paper" && computerSelection == "scissors") {
+        console.log("You lose! scissors cut paper!");
+      }
+      else if (playerSelection == "scissors" && computerSelection == "rock") {
+        console.log("You lose! rock breaks scissors!");
+      }
+      else if (playerSelection == "scissors" && computerSelection == "paper") {
+        console.log("You win! scissors cut paper!");
+      }
+      else {
+        console.log("Draw!");
+      }
+    }
+
+    function playerChoice(e) {
+      if (e.path[0].className == "rock") {
+        playRound("rock");
+      }
+      else if (e.path[0].className == "paper") {
+        playRound("paper");
+      }
+      else if (e.path[0].className == "scissors") {
+        playRound("scissors");
+      } 
+    }
+
+    const btns = document.querySelectorAll("button")
+    btns.forEach(btn => btn.addEventListener("click", playerChoice));
+
+  </script>
+</body>
+</html>
