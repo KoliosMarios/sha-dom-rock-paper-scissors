@@ -6,37 +6,52 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Document</title>
 </head>
-<body>
+<body class="container">
 
     <button class="rock">Rock</button>
     <button class="paper">Paper</button>
     <button class="scissors">Scissors</button>
 
   <script>
+    let playerScore = 0;
+    let computerScore = 0;
 
     function playRound(playerSelection) {
       const random = ["rock", "paper", "scissors"];
       const computerSelection = random[Math.floor(Math.random() * 3)];
       if (playerSelection == "rock" && computerSelection == "paper") {
-        console.log("You lose! paper covers rock!");
+        result.textContent = "You lose! paper covers rock!";
+        container.appendChild(result);
+        computerScore++;
       }
       else if (playerSelection == "rock" && computerSelection == "scissors") {
-        console.log("You win! rock breaks scissors!");
+        result.textContent = "You win! rock breaks scissors!";
+        container.appendChild(result);
+        playerScore++
       }
       else if (playerSelection == "paper" && computerSelection == "rock") {
-        console.log("You win! paper covers rock!");
+        result.textContent = "You win! paper covers rock!";
+        container.appendChild(result);
+        playerScore++;
       }
       else if (playerSelection == "paper" && computerSelection == "scissors") {
-        console.log("You lose! scissors cut paper!");
+        result.textContent = "You lose! scissors cut paper!";
+        container.appendChild(result);
+        computerScore++;
       }
       else if (playerSelection == "scissors" && computerSelection == "rock") {
-        console.log("You lose! rock breaks scissors!");
+        result.textContent = "You lose! rock breaks scissors!";
+        container.appendChild(result);
+        computerScore++;
       }
       else if (playerSelection == "scissors" && computerSelection == "paper") {
-        console.log("You win! scissors cut paper!");
+        result.textContent = "You win! scissors cut paper!";
+        container.appendChild(result);
+        playerScore++;
       }
       else {
-        console.log("Draw!");
+        result.textContent = "Draw!";
+        container.appendChild(result);
       }
     }
 
@@ -54,6 +69,29 @@
 
     const btns = document.querySelectorAll("button")
     btns.forEach(btn => btn.addEventListener("click", playerChoice));
+
+    const container = document.querySelector(".container");
+    const result = document.createElement("div");
+    const score = document.createElement("div");
+
+    function finalScore() {
+      if (computerScore < 5 && playerScore < 5) {
+        score.textContent = `Your Score ${playerScore} - Computer Score ${computerScore}`;
+        container.appendChild(score);
+      }
+      else if (playerScore == 5) {
+        score.textContent = "Congratulations John Connor! You beat the machine!!!";
+        container.appendChild(score);
+        playerScore = 0;
+        computerScore = 0;
+      }
+      else if (computerScore == 5) {
+        score.textContent = "You lost! Terminator has found you...";
+        container.appendChild(score);
+        playerScore = 0;
+        computerScore = 0;
+      }
+    }
 
   </script>
 </body>
