@@ -1,99 +1,118 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Document</title>
-</head>
-<body class="container">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+    <link rel="stylesheet" href="./index.css">
+  </head>
+  <body>
+    <h1>Make your choice</h1>
+    <div class="play_area_buttons">
+      <button class="rock">Rock</button>
+      <button class="paper">Paper</button>
+      <button class="scissors">Scissors</button>
+    </div>
+    <div class="container"></div>
 
-    <button class="rock">Rock</button>
-    <button class="paper">Paper</button>
-    <button class="scissors">Scissors</button>
+    <script>
+      const container = document.querySelector(".container");
+      //create the divs for displaying the results
+      const result = document.createElement("div");
+      const score = document.createElement("div");
 
-  <script>
-    let playerScore = 0;
-    let computerScore = 0;
+      //create the variables to keep the round scores
+      let playerScore = 0;
+      let computerScore = 0;
 
-    function playRound(playerSelection) {
-      const random = ["rock", "paper", "scissors"];
-      const computerSelection = random[Math.floor(Math.random() * 3)];
-      if (playerSelection == "rock" && computerSelection == "paper") {
-        result.textContent = "You lose! paper covers rock!";
-        container.appendChild(result);
-        computerScore++;
-      }
-      else if (playerSelection == "rock" && computerSelection == "scissors") {
-        result.textContent = "You win! rock breaks scissors!";
-        container.appendChild(result);
-        playerScore++
-      }
-      else if (playerSelection == "paper" && computerSelection == "rock") {
-        result.textContent = "You win! paper covers rock!";
-        container.appendChild(result);
-        playerScore++;
-      }
-      else if (playerSelection == "paper" && computerSelection == "scissors") {
-        result.textContent = "You lose! scissors cut paper!";
-        container.appendChild(result);
-        computerScore++;
-      }
-      else if (playerSelection == "scissors" && computerSelection == "rock") {
-        result.textContent = "You lose! rock breaks scissors!";
-        container.appendChild(result);
-        computerScore++;
-      }
-      else if (playerSelection == "scissors" && computerSelection == "paper") {
-        result.textContent = "You win! scissors cut paper!";
-        container.appendChild(result);
-        playerScore++;
-      }
-      else {
-        result.textContent = "Draw!";
-        container.appendChild(result);
-      }
-      finalScore();
-    }
+      function playRound(playerSelection) {
 
-    function playerChoice(e) {
-      if (e.path[0].className == "rock") {
-        playRound("rock");
-      }
-      else if (e.path[0].className == "paper") {
-        playRound("paper");
-      }
-      else if (e.path[0].className == "scissors") {
-        playRound("scissors");
-      } 
-    }
+        //create the array with choices for the computer to randomise through
+        const random = ["rock", "paper", "scissors"];
+        const computerSelection = random[Math.floor(Math.random() * 3)];
 
-    const btns = document.querySelectorAll("button")
-    btns.forEach(btn => btn.addEventListener("click", playerChoice));
-
-    const container = document.querySelector(".container");
-    const result = document.createElement("div");
-    const score = document.createElement("div");
-
-    function finalScore() {
-      if (computerScore < 5 && playerScore < 5) {
-        score.textContent = `Your Score ${playerScore} - Computer Score ${computerScore}`;
-        container.appendChild(score);
+        //result and scores are renewed based on the player and the computer choices 
+        if (playerSelection == "rock" && computerSelection == "paper") {
+          result.textContent = "You lose! paper covers rock!";
+          container.appendChild(result);
+          computerScore++;
+        } else if (
+          playerSelection == "rock" &&
+          computerSelection == "scissors"
+        ) {
+          result.textContent = "You win! rock breaks scissors!";
+          container.appendChild(result);
+          playerScore++;
+        } else if (playerSelection == "paper" && computerSelection == "rock") {
+          result.textContent = "You win! paper covers rock!";
+          container.appendChild(result);
+          playerScore++;
+        } else if (
+          playerSelection == "paper" &&
+          computerSelection == "scissors"
+        ) {
+          result.textContent = "You lose! scissors cut paper!";
+          container.appendChild(result);
+          computerScore++;
+        } else if (
+          playerSelection == "scissors" &&
+          computerSelection == "rock"
+        ) {
+          result.textContent = "You lose! rock breaks scissors!";
+          container.appendChild(result);
+          computerScore++;
+        } else if (
+          playerSelection == "scissors" &&
+          computerSelection == "paper"
+        ) {
+          result.textContent = "You win! scissors cut paper!";
+          container.appendChild(result);
+          playerScore++;
+        } else {
+          result.textContent = "Draw!";
+          container.appendChild(result);
+        }
+        //finalScore function is called to check if there is a winner
+        finalScore();
       }
-      else if (playerScore == 5) {
-        score.textContent = "Congratulations John Connor! You beat the machine!!!";
-        container.appendChild(score);
-        playerScore = 0;
-        computerScore = 0;
-      }
-      else if (computerScore == 5) {
-        score.textContent = "You lost! Terminator has found you...";
-        container.appendChild(score);
-        playerScore = 0;
-        computerScore = 0;
-      }
-    }
 
-  </script>
-</body>
+      //function that triggers every time the player clicks a button
+      //we use it to call the playRound function with the players choice as a parameter 
+      function playerChoice(e) {
+        if (e.path[0].className == "rock") {
+          playRound("rock");
+        } else if (e.path[0].className == "paper") {
+          playRound("paper");
+        } else if (e.path[0].className == "scissors") {
+          playRound("scissors");
+        }
+      }
+
+      //assign the playerChoice function as an onClick event to all the buttons
+      const btns = document.querySelectorAll("button");
+      btns.forEach((btn) => btn.addEventListener("click", playerChoice));
+
+      function finalScore() {
+        // if no one is winning then we just display the temporary result 
+        if (computerScore < 5 && playerScore < 5) {
+          score.textContent = `Your Score ${playerScore} - Computer Score ${computerScore}`;
+          container.appendChild(score);
+        } 
+        // if any of the players is winning we display the winning message and set the scores back to zero so a new game can start
+        else if (playerScore == 5) {
+          score.textContent =
+            "Congratulations John Connor! You beat the machine!!!";
+          container.appendChild(score);
+          playerScore = 0;
+          computerScore = 0;
+        } else if (computerScore == 5) {
+          score.textContent = "You lost! Terminator has found you...";
+          container.appendChild(score);
+          playerScore = 0;
+          computerScore = 0;
+        }
+      }
+    </script>
+  </body>
 </html>
